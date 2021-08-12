@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+ 
+<link rel="stylesheet"  href="{% static 'css/resume.css' %}">
+                                  <script src="{% static 'js/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+</head>
+<body>
+
+	                    
+                       <div class="container">
+               <div class="row">
+
+                    <div class="col-md-6 col-sm-12">
+                        
+                  <!-- {% if user.is_active  %} -->
+                           <div class="entry-form">
+                        <!-- <a href="{% url 'index' %}"> -->
+                       <h2 style="color:blue;text-align:center;"> Home</h2>
+                      <!-- </a> -->
+                         </div>
+                         <div class="entry-form">
+                        <a href="{% url 'logout' %}">Logout</a>
+                         </div>
+                          <div class="entry-form">
+                        <a href="{% url 'enter_details' %}">Enter Details</a>
+                         </div>
+                         <div class="entry-form">
+                        <a href="{% url 'show_details' %}">Show Details</a>
+                         </div>
+                        <div class="entry-form">
+                        <a href="{% url 'resume_template' %}">Template</a>
+                         </div>
+                  <!-- {% else %} -->
+                            <div class="entry-form">
+                                   <h2 style="color:blue;text-align:center;">Login Login Login</h2>
+                              
+                              <!-- {% csrf_token %} -->
+
+                                
+                                   <input type="email" name="user_email"   class="form-control" placeholder="Your email address" required>  </input>
+
+                                   <input type="password"  name="password1" class="form-control" placeholder="Your password" required>  </input>
+                               
+                               <!-- {% for ob in Personal_Detils_ob %} -->
+                                
+                                <!-- {% endfor %} -->
+                                
+                            </div> 
+
+                   <!-- {% endif %}  -->
+                    </div>
+
+                  <!-- {{ user.first_name }} {{ user.last_name }} -->
+                   
+                   
+                    <div class="col-md-offset-1 col-md-4 col-sm-12">
+                            <form  id="the_Form" action=""  method="POST">
+                              <!-- {% csrf_token %} -->
+                            <div class="entry-form">
+                                   <h2>Signup today</h2>
+                                   <h2> {{ first_name }}</h2>
+
+
+                                   <input type="text" name="first_name" id="id_first_name"   class="form-control" placeholder="Full name" required>  </input>
+                                   <input type="text"  name="last_name" id="id_last_name"  class="form-control" placeholder="Last name" required > </input>
+
+                                   <input type="email" name="user_email" id="id_user_email"   class="form-control" placeholder="Your email address" required>  </input>
+
+                                   <input type="password" name="password1" id="id_password1"  class="form-control" placeholder="Your password" required>  </input>
+                                   <input type="password" name="password2" id="id_password2"  class="form-control" placeholder="Your password" required>  </input>
+                               
+                              <button type="submit" id="b1"  class="btn btn-primary" >Submit</button>
+                              </form>
+                               <div id="sent_resullt_one">
+                                    
+                                </div>
+                             </div>   
+                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                     
+ 
+                             
+                                 </div>       
+
+             </div>
+          </div>
+                                
+         
+</body>
+</html>        

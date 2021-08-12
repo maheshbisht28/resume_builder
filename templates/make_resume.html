@@ -1,0 +1,519 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <title>Resume Builder</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+
+</head>
+<body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+     <!-- PRE LOADER -->
+   <!--   <section class="preloader">
+          <div class="spinner">
+
+               <span class="spinner-rotate"></span>
+               
+          </div>
+     </section> -->
+
+
+     <!-- MENU -->
+     <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+          <div class="container">
+
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+
+                    <!-- lOGO TEXT HERE -->
+                    <a href="{% url 'index' %}" class="navbar-brand">Resume Builder</a>
+               </div>
+
+               <!-- MENU LINKS -->
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-nav-first">
+                         <li>
+                         <a href="{% url 'index' %}">Home</a></li>
+
+                         <li>
+                          <a href="{% url 'enter_details' %}">Enter Details</a>
+                        </li>
+                         <li>
+                           <a href="{% url 'show_details' %}">Show Details</a>
+                          
+                         </li>
+                
+                         <li>
+                           <a href="{% url 'make_resume' %}">Make Resume</a>
+                         
+                        </li>
+                                        
+                         <li>
+                           <a href="{% url 'resume_template' %}">Template</a>
+                         
+                        </li>
+                    </ul>
+                 
+                    {% if user.is_active  %}
+
+                    <ul class="nav navbar-nav navbar-right">
+                         <li><a href="#">{{ user.first_name }} {{ user.last_name }} </a></li>
+                         <li> <a href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                    <br>
+                  
+                    {% endif %}
+                    
+               </div>
+
+          </div>
+     </section>
+
+
+
+     <!-- ABOUT -->              
+         <div class="container">
+               <div class="row">
+
+                    <div class="col-md-6 col-sm-12">
+                        
+                  {% if user.is_active  %}
+                          <br>
+                         <br>
+                         <h2>Select Data to be included in Resume</h2>
+                  <!-- Skillss      -->
+                            <form  id="form_skill" name='skill_fr' action="{% url 'make_resume1' %}"  method="post">
+                              {% csrf_token %}
+                                 <b>Skill</b>
+                                 <br>
+                                  <br>
+                                  {% for val in  skill_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Skill_name" value={{ val.id }}>
+                                    <b> Skill Name:</b> {{ val.name }}
+
+                                   <br>
+                               
+                                  
+                                  {% endfor %}
+                                  <br>
+                                  <br>
+
+                                 <b>Email_from</b>
+                                 <br>
+                                  <br>
+                                  {% for val in  Email_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Email_name" value={{ val.id }} >
+                                     {{ val.email_name }}
+
+                                   <br>
+                               
+                                  {% endfor %}
+                                  <br>
+                                  <br>
+
+                                 <b>Personal_Details_from</b>
+                                 <br>
+                                  <br>
+                                  {% for val in  Personal_Details_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Personal_name" value={{ val.id }} >
+                                    <!-- Name {{ val.name }} -->
+                                  
+                                    <b> First Name </b> {{ val.first_name }}
+                                     
+                                   &nbsp;   <b>Middle Name</b> {{ val.middle_name }}
+                                     
+                                   &nbsp;<b> Last Name </b> {{ val.last_name }}
+                                   &nbsp;<b> DOB </b> {{ val.dob }}
+                                     
+                                   &nbsp; <b> Contact </b> {{ val.contact }}
+                                  {% endfor %}
+                                   <br>
+                               
+                                 <br>
+                                 <br>
+
+
+                                 <b>Other_link_from</b>
+                                 <br>
+                                  <br>
+                                  {% for val in  Other_link_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Other_link_name" value={{ val.id }} >
+                                  <b> Other Link:</b>   {{ val.link }}
+
+                                   <br>
+                               
+                                  {% endfor %}
+                                  <br><br>
+                                 <b>Objectives_from</b>
+                                 <br>
+                                 <br>
+                                  
+                                  {% for val in  Objectives_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Objectives_name" value={{ val.id }} >
+                                  <b> Objective:</b>   {{ val.objective_text }}
+
+                                   <br>
+                               
+                                  {% endfor %}
+                                  <br>
+                                  <br>  
+                                 <b>Education_from</b>
+                                 <br>
+                                  <br>
+                                  {% for val in  Education_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Education_name" value={{ val.id }} >
+                                  <!-- <b> Skill Name:</b>   {{ val.id }} -->
+                                  <b> Board:</b>   {{ val.board }}
+                                  <b> Degree:</b>   {{ val.degree }}
+                                  <b> Date From:</b>   {{ val.date_from }}
+                                  <b> Date To:</b>   {{ val.date_to }}
+                                  <b> About:</b>   {{ val.about }}
+                                   <br>
+                               
+                                  {% endfor %}
+                                  <br>
+                                  <br>
+
+                                 <b>Experience_from</b>
+                                 <br>
+                                  <br>
+                                  {% for val in  Experience_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Experience_name" value={{ val.id }} >
+                                   <b> Company:</b>  {{ val.company }}
+                                     <b> Date From:</b>{{ val.date_from }}
+                                   <b> Date To:</b>  {{ val.date_to }}
+                                   <b> Total Experience:</b>  {{ val.total_experience_time }}
+                                   <b> Summary:</b>  {{ val.summary }}
+                                     <!-- {{ val.about }} -->
+
+                                   <br>
+                               
+                                  {% endfor %}
+                                  <br>
+                                  <br>
+
+
+                                 <b>Projects_from</b>
+                                 <br>
+                                  <br>
+                                  {% for val in  Projects_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Projects_name" value={{ val.id }} >
+                                   <b> Ttile :</b>  {{ val.title }}
+                                    <!-- {{ val.company }} -->
+                                   <b> Date From:</b>  {{ val.date_from }}
+                                   <b> Date To:</b>  {{ val.date_to }}
+                                   <b> Technology:</b>  {{ val.technogy_used }}
+                                   <b> Total Member:</b>  {{ val.total_member }}
+                                   <b> Your Role:</b>  {{ val.your_role }}
+                                   <b> Summary:</b>  {{ val.summary }}                                     
+                                   <br>
+                               
+                                 
+                                  {% endfor %}
+                                  <br>
+                                  <br>
+
+                                 <b>Certification_from</b>
+                                 <br>
+                                 <br>
+                                  
+                                  {% for val in  Certification_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Certification_name" value={{ val.id }} >
+                                    <b> Name:</b>  {{ val.name }}
+                                    <!-- {{ val.company }} -->
+                                      <b> Date From:</b>{{ val.date_from }}
+                                     <b>Date To:</b> {{ val.date_to }}
+                                     <b> Expired Date:</b> {{ val.expired_date }}
+                                     <b> About:</b> {{ val.about }}
+<!--                                      {{ val.your_role }}
+                                     {{ val.summary }}  
+ -->
+                                   <br>
+                               
+                                  {% endfor %}
+                                  <br>
+                                  <br>
+
+                                 <b>Address_from</b>
+                                 <br>
+                                  <br>
+                                  {% for val in  Address_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Address_name" value={{ val.id }} >
+                                  <b> Flat no:</b>    {{ val.flat_no }}
+                                    <!-- {{ val.company }} -->
+                                  <b> City:</b>    {{ val.city }}
+                                  <b> State:</b>    {{ val.state }}
+                                  <b> Expired Date:</b>    {{ val.expired_date }}
+                                  <b> Pincode:</b>    {{ val.pincode }}
+                                  <b> Country:</b>    {{ val.country }}
+                                     <!-- {{ val.pincode }} -->
+                                   <br>
+                               
+                                  {% endfor %}
+                                 <br>
+                                 <br>
+                                 <b>Interest</b>
+                                 <br>
+                                  <br>
+                                  {% for val in  Interest_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Interest_name" value={{ val.id }}>
+                                   <b> Name:</b>  {{ val.name }}
+
+                                   <br>
+                               
+                                 
+                                  {% endfor %}
+                                  <br>
+                                  <br>
+                                   <b>Language</b>
+                                 <br>
+                                  <br>
+                                  {% for val in  Language_from %}
+                                   <input type="checkbox" id={{ val.id }} name="Language_name" value={{ val.id }}>
+                                   <b> Name:</b>  {{ val.name }}
+
+                                   <br>
+                               
+                                 
+                                  {% endfor %}
+                                  <br>
+                                  <br>
+                                 <b>Select Template</b>
+                                 <br>
+                                  <br>
+                                  <input type="checkbox" id="template-1" name="template_name_1">
+                                  <b> Template 1 </b>
+                                  <br> 
+                                  <input type="checkbox" id="template-2" name="template_name_2">
+                                  <b> Template 2 </b>
+                                  <br>  
+                               
+                                                                  <br>
+                                  <br>
+                                  <div>
+                                  
+                                  <button type="submit"id="checkBtn"  name="checkBtn" class="btn btn-primary">Submit</button>
+                                  
+                                  <button type="submit" id="ViewBtn" name="ViewBtn" class="btn btn-primary">View</button>
+
+                                  </div> 
+
+                        {% endif %}
+                    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+
+                          <script type="text/javascript">
+                          $(document).ready(function () {
+                              $('#checkBtn').click(function() {
+                                // checked = $("input[type=checkbox]:checked").length;
+
+
+                                // if(!checked) {
+                                //   alert(checked);
+                                //   return false;
+                                // }
+                              if ($('input[name=Skill_name]:checked').length > 0) {
+                                    // alert("Checked");
+                                } else {
+                                    alert(" Skill is Not checked");
+                                    return false;
+                                }
+                                if ($('input[name=Email_name]:checked').length > 0) {
+                                    // alert("Checked");
+                                } else {
+                                    alert(" Email is Not checked");
+                                    return false;
+                                }
+
+                                
+                                if ($('input[name=Personal_name]:checked').length > 0) {
+                                    // alert("Checked");
+                                } else {
+                                    alert(" Personal is Not checked");
+                                    return false;
+                                }                                
+                                
+                                // if ($('input[name=Other_link_name]:checked').length > 0) {
+                                //     // alert("Checked");
+                                // } else {
+                                //     alert(" Othe link is Not checked");
+                                //     return false;
+                                // }
+
+                                if ($('input[name=Objectives_name]:checked').length > 0) {
+                                    // alert("Checked");
+                                } else {
+                                    alert(" Objectives ssis Not checked");
+                                    return false;
+                                }                                
+                               
+                               if ($('input[name=Education_name]:checked').length > 0) {
+                                    // alert("Checked");
+                                } else {
+                                    alert(" Education is Not checked");
+                                    return false;
+                                }
+                               if ($('input[name=Experience_name]:checked').length > 0) {
+                                    // alert("Checked");
+                                } else {
+                                    alert(" Experience is Not checked");
+                                    return false;
+                                } 
+                               if ($('input[name=Projects_name]:checked').length > 0) {
+                                    // alert("Checked");
+                                } else {
+                                    alert(" Projects is Not checked");
+                                    return false;
+                                }                                                               
+
+                               if ($('input[name=Address_name]:checked').length > 0) {
+                                    // alert("Checked");
+                                } else {
+                                    alert(" Address is Not checked");
+                                    return false;
+                                }                                                               
+                               if ($('input[name=Interest_name]:checked').length > 0) {
+                                    // alert("Checked");
+                                } else {
+                                    alert(" Interest is Not checked");
+                                    return false;
+                                }                                                               
+
+                              });
+
+                          });
+
+                       </script>
+
+                 
+     <section id="about">
+          <div class="container">
+               <div class="row">
+
+                    
+                    <div class="col-md-6 col-sm-12">
+   {% if not user.is_active  %}  
+                 <!--  {% if user.is_active  %}
+                      
+                  {% else %} -->
+                            <div class="entry-form">
+                                   <h2>Login</h2>
+                               <form  id="Form" action="{% url 'login' %}"  method="post">
+                              {% csrf_token %}
+
+                                
+                                   <input type="email" name="user_email"   class="form-control" placeholder="Your email address" required>  </input>
+
+                                   <input type="password"  name="password1" class="form-control" placeholder="Your password" required>  </input>
+                               
+                               
+                                   <button type="submit"   class="btn btn-primary" >Submit</button>
+                             
+                                   </form>
+                            </div> 
+
+                   <!-- {% endif %}  -->
+                    </div>
+
+         
+                   
+                           
+                    <div class="col-md-offset-1 col-md-4 col-sm-12">
+                            <form  id="the_Form" action=""  method="POST">
+                              {% csrf_token %}
+                            <div class="entry-form">
+                                   <h2>Signup today</h2>
+
+
+                                   <input type="text" name="first_name" id="id_first_name"   class="form-control" placeholder="Full name" required>  </input>
+                                   <input type="text"  name="last_name" id="id_last_name"  class="form-control" placeholder="Last name" required > </input>
+
+                                   <input type="email" name="email" id="id_email"   class="form-control" placeholder="Your email address" required>  </input>
+
+                                   <input type="password" name="password1" id="id_password1"  class="form-control" placeholder="Your password" required>  </input>
+                                   <input type="password" name="password2" id="id_password2"  class="form-control" placeholder="Your password" required>  </input>
+                               
+                              <button type="submit" id="b1"  class="btn btn-primary" >Submit</button>
+                              </form>
+                               <div id="sent_resullt_one">
+                                    
+                               </div>
+                             </div>   
+                                   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                           <script >
+                                                  $('#the_Form').on('submit', function(e){
+                                                  e.preventDefault();
+                                                   // alert("cscs")
+                                                   alert("cscs")
+                                                   // console.log("$('#last_name_id').val()", $('#last_name_id').val())
+
+                                                  var form_id= $("#the_Form")
+                                                  $.ajax({
+                                                      type:'POST',
+                                                      url: "{% url 'register' %}",
+                                                      data:{
+                                                      first_name :$('#id_first_name').val(),
+                                                      last_name :$('#id_last_name').val(),
+                                                      email :$('#id_email').val(), 
+                                                      password1 :$('#id_password1').val(),
+                                                      password2 :$('#id_password2').val(),
+                                                       'csrfmiddlewaretoken': '{{ csrf_token }}' },
+                                                      dataType:"json",
+
+                                                      header:{'x-CSRFToken':'{% csrf_token %}'},
+                                    
+                                                      
+                                                      success:function(json){
+                                           console.log(json);
+                                                          // console.log("success");
+                                                                $("#sent_resullt_one").html("<tr><td><strong>"+json+"</strong></td><td></tr>").css({'background-color': 'green','width':'400px','font-size':'22px','text-align':'center',
+                              'font-style': 'italic'});
+                     
+
+                                                      }     
+
+                                                  })
+                                              });
+                                              
+
+                                           </script>
+ 
+                             
+                            </div> 
+
+
+                       {% endif %}
+
+                </div>
+          </div>
+                                
+                         
+     </section>
+     
+       <script src="{% static 'js/jquery.js' %}"></script>
+     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+     <script src="{% static 'js/smoothscroll.js' %}"></script>
+     <script src="{% static 'js/custom.js' %}"></script>
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+
+</body>
+</html>

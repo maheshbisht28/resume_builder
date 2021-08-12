@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+                                  <script src="{% static 'js/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+</head>
+<body>
+                       <div class="container">
+               <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                  {% if user.is_active  %}
+                          <div class="entry-form">
+                          <a href="{% url 'index' %}">Home</a>
+                          </div>
+                         <div class="entry-form">
+                        <a href="{% url 'logout' %}">Logout</a>
+                         </div>
+                         <br>
+                         <br>
+                         <div class="entry-form">
+                            <form  id="form_skill" name='skill_fr' action="{% url 'show_details' %}"  method="post">
+                              {% csrf_token %}
+                                 <b>skill</b>
+                
+                                  {% for val in  form_skill.name.value %}
+                                   <input type="checkbox" id={{ val.id }} name="name" value={{ val.id }}>
+                                     {{ val }}
+
+                                   <br>
+                               
+                                  <br>
+                                  {% endfor %}
+                                 <label for="id_user">User</label> {{ form_skill.user }}
+                                 <input type="hidden" name="sk_form" >
+
+                              <div id="items_skills">
+                              <input type="text" name="text_fields"  id="id_text_fields">
+                              <input type="button"  value="add entry" id="add">
+                            </div>                                 
+                             <button type="submit"   class="btn btn-primary" > 
+                              Submit</button>   
+                            </form>  
+
+                           <!-- Personal_Details   -->
+                             <form  id="form_Personal_Details"  action="{% url 'show_details' %}"  method="post">
+                              {% csrf_token %}
+                                 <b>Personal_Details</b>
+                
+                                  {% for val in  form_Personal_Details %}
+                                     {{ val.name }}
+                                     {{ val }}
+
+                                   <br>
+                               
+                                  <br>
+                                  {% endfor %}
+                                 
+                                 <input type="hidden" name="Personal_Details_form" >
+
+                             <button type="submit"   class="btn btn-primary" > 
+                              Submit</button>   
+                            </form>
+                 <!--             
+other link form -->
+                             <form  id="Other_link_Details"  action="{% url 'show_details' %}"  method="post">
+                              {% csrf_token %}
+                                 <b> Other link</b>
+                                 <br>
+                
+                                  {% for val in  form_Other_link %}
+                                     {{ val.name }}
+                                     {{ val }}
+
+                                   <br>
+                               
+                                  <br>
+                                  {% endfor %}
+                                 
+                                 <input type="hidden" name="Other_link_form" >
+
+                             <button type="submit"   class="btn btn-primary" > 
+                              Submit</button>   
+                            </form>
+
+<!-- Objectives -->
+<br> <br>
+                            <form  id="form_Objectives"  action="{% url 'show_details' %}"  method="post">
+                              {% csrf_token %}
+                                 <b>Objectives</b>
+                                 <br> <br>      
+                                  {% for val in  form_Objectives.objective_text.value %}
+                                   <input type="checkbox" id={{ val.id }} name="objective_text" value={{ val.id }}>
+                                     {{ val.objective_text }}
+                                    <br>
+                                  {% endfor %}
+                                  <br>
+                                 <label for="id_user">User</label> {{ form_Objectives.user }}
+                                 <input type="hidden" name="Objectives_form" >
+                           
+                                        <div id="items_objectives">
+                                        <textarea name="text_fields_objective" id="objective_text_fields" ></textarea>
+                                        <input type="button"  value="add entry" id="add_objective">
+                                        <!-- <input type="button"  value="delete" id="remove_objective"> -->
+                                        </div>                                 
+                                <button type="submit"   class="btn btn-primary" > 
+                              Submit</button>   
+                            </form>  
+
+<!-- Interest       <>       -->
+                            <br>
+                         <form  id="form_Interest"  action="{% url 'show_details' %}"  method="post">
+                              {% csrf_token %}
+                                 <b>Interest</b>
+                                 <br> <br>
+                               
+                                  {% for val in  form_Interest.name.value %}
+                                   <input type="checkbox" id={{ val.id }} name="name" value={{ val.id }}>
+                                     {{ val.name }}
+                                    <br>
+                            
+                                 
+                                  {% endfor %}
+                                  <br>
+                              
+                                 <label for="id_user">User</label> {{ form_Interest.user }}
+                                 <input type="hidden" name="Interest_form" >
+                           
+                                        <div id="items_Interest">
+                                        
+                                        <input type="text" name="text_fields_Interest"  id="id_text_fields">
+                                        <input type="button"  value="add entry" id="add_Interest">
+                                        </div>                                 
+                               
+                                <button type="submit"   class="btn btn-primary" > 
+                              Submit</button>   
+                            </form>  
+                 <!-- Email -->
+                            <form  id="form_Email"  action="{% url 'show_details' %}"  method="post">
+                              {% csrf_token %}
+                              <br><br>
+                                 <b>Email </b>
+                                 <br> <br>
+                                  {% for val in  form_email.email_name.value %}
+                                   <input type="checkbox" id={{ val.id }} name="email_name" value={{ val.id }}>
+                                     {{ val.email_name }}
+                                    <br> 
+                                  {% endfor %}
+                                  <br>
+                              
+                                 <label for="id_user">User</label> {{ form_email.user }}
+                                 <input type="hidden" name="Email_form" >
+                           
+                                        <div id="items_Email">
+                                          <input type="text" name="text_fields_Email"  id="id_text_fields_Email">
+                                        <input type="button"  value="add entry" id="add_Email">
+                                        </div>       
+
+                               
+                                <button type="submit"   class="btn btn-primary" > 
+                              Submit</button>   
+                            </form> 
+
+                  <!-- Education           -->
+                            <form  id="form_Education"  action="{% url 'show_details' %}"  method="post">
+                              {% csrf_token %}
+                              <br><br>
+                                 <b>Education  </b>
+                                 <br> <br>
+                       
+
+                                  <b>Education  </b>
+                                 <br> <br>
+                                   {% for ff in  formset %}
+                                  
+                         
+                                  
+                                   <input type="checkbox"  name="form_educ" value="{{ff.instance.pk}}" >
+                                  {% for f in  ff %}   
+                                     {{ f }}
+                                   {% endfor %}
+                                    <br> 
+                                  <br>
+                              
+                                 
+                                  {% endfor %}    
+                              <input type="hidden" name="Education_form" >
+                           
+                                        <div id="items_Education">
+                                        
+                                        <input type="button"  value="add entry" id="add_Education">
+                                      
+                                        </div>                                 
+                                <button type="submit"   class="btn btn-primary" > 
+                              Submit</button>   
+                            </form>                   
+                            
+                       
+                         </div>
+                            <h1>ENDING</h1>
+                            <div class="entry-form">
+                                   <h2>Login</h2>
+                               <form  id="Form" action="{% url 'show_details' %}"  method="post">
+                              {% csrf_token %}
+                                <b>Email</b>
+                                  {{form_email.as_p }}
+                                  <br>
+                                  <br><br>
+                                 <b>Certification</b>
+                                 {{ form_Certification.as_p }}
+
+                                  <b>Address</b>
+                                  {{form_Address.as_p }}
+                               
+                                   <button type="submit"   class="btn btn-primary" >Submit</button>
+                             
+                                   </form>
+                            </div> 
+                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                             <script>
+                              // skill_script
+                               $(document).ready(function(e){
+                                $("#add").click(function(e){
+                                  console.log("ffffffff")
+                                        e.preventDefault();
+                                        
+                                  $('#items_skills').append('<div><input type="text" name="text_fields" required id="id_text_fields"></div');
+                                  
+                                    });
+
+                              // objective_script
+                             
+                                $("#add_objective").click(function(e){
+                                  console.log("DWDwdw")
+                                        e.preventDefault();
+                                     
+                                      $('#items_objectives').append('<div>><textarea name="text_fields_objective" id="objective_text_fields" required></textarea><input type="button"  value="delete" id="remove_objective"></div');
+                                      
+                                      $('body').on('click',"#remove_objective",function(e){
+                                         // console.log("DWDwdw")
+                                            e.preventDefault();
+                                         
+                                         $(this).parent('div').remove();
+                                      
+                                        }); 
+                                  });
+
+                                // Interest script
+                                $("#add_Interest").click(function(e){
+                                console.log("DWDwdw")
+                                        e.preventDefault();
+                                     
+                                  $('#items_Interest').append('<div><input type="text" name="text_fields" required id="id_text_fields"></div');
+                                  
+                                  
+                                    });
+                                // Email script
+
+                                $("#add_Email").click(function(e){
+                                console.log("Email")
+                                        e.preventDefault();
+                                     
+                                  $('#items_Email').append('<div><input type="text" name="text_fields_Email"  id="id_text_fields_Email"></div');
+                                  
+                                  
+                                    });
+
+// Education
+                                $("#add_Education").click(function(e){
+                                        e.preventDefault();
+                                     
+                                      $('#items_Education').append('<div><td><label for="i_board">Board:</label><input type="text" name="board_new" value="" maxlength="50" required id="i_board"></td></tr><tr><th><label for="i_degree">Degree:</label></th><td><input type="text" name="degree_new" value="" maxlength="50" required id="i_degree"></td></tr><tr><th><label for="i_date_from">Date from:</label></th><td><input type="datetime" name="date_from_new" value="" placeholder="DD/MM/DD HH:MM:SS" required id="i_date_from"></td></tr><tr><th><label for="i_date_to">Date to:</label></th><td><input type="datetime" name="date_to_new" value="" placeholder="DD/MM/DD HH:MM:SS" required id="i_date_to"></td></tr><tr><th><label for="i_about">About:</label></th><td><textarea name="about_new" cols="40" rows="10" required id="i_about"></textarea></td></tr><input type="button"  value="delete" id="remove_Education"></div');
+                                      
+                                      $('body').on('click',"#remove_Education",function(e){
+                                         // console.log("DWDwdw")
+                                            e.preventDefault();
+                                         
+                                         $(this).parent('div').remove();
+                                      
+                                        }); 
+                                  });
+                                });
+ 
+                            
+                             </script>
+                          
+
+                {% else %}
+
+                 
+                    </div>
+
+                  {{ user.first_name }} {{ user.last_name }}
+                   
+                   
+                              <div class="col-md-offset-1 col-md-4 col-sm-12">
+                                      <form  id="the_Form" action=""  method="POST">
+                                        {% csrf_token %}
+                                      <div class="entry-form">
+                                             <h2>Signup today</h2>
+
+
+                                             <input type="text" name="first_name" id="id_first_name"   class="form-control" placeholder="Full name" required>  </input>
+                                             <input type="text"  name="last_name" id="id_last_name"  class="form-control" placeholder="Last name" required > </input>
+
+                                             <input type="email" name="user_email" id="id_user_email"   class="form-control" placeholder="Your email address" required>  </input>
+
+                                             <input type="password" name="password1" id="id_password1"  class="form-control" placeholder="Your password" required>  </input>
+                                             <input type="password" name="password2" id="id_password2"  class="form-control" placeholder="Your password" required>  </input>
+                                         
+                                        <button type="submit" id="b1"  class="btn btn-primary" >Submit</button>
+                                        </form>
+                                         <div id="sent_resullt_one">
+                                              
+                                          </div>
+                              </div>   
+                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                 <script >
+                                        $('#the_Form').on('submit', function(e){
+                                        e.preventDefault();
+                                         
+                                         alert("cscs")
+                                         
+
+                                        var form_id= $("#the_Form")
+                                        $.ajax({
+                                            type:'POST',
+                                            url: "{% url 'register' %}",
+                                            data:{
+                                            first_name :$('#id_first_name').val(),
+                                            last_name :$('#id_last_name').val(),
+                                            user_email :$('#id_user_email').val(), 
+                                            password1 :$('#id_password1').val(),
+                                            password2 :$('#id_password2').val(),
+                                             'csrfmiddlewaretoken': '{{ csrf_token }}' },
+                                            dataType:"json",
+
+                                            header:{'x-CSRFToken':'{% csrf_token %}'},
+                          
+                                            
+                                            success:function(json){
+                                 console.log(json);
+                                        
+                                                      $("#sent_resullt_one").html("<tr><td><strong>"+json+"</strong></td><td></tr>").css({'background-color': 'green','width':'400px','font-size':'22px','text-align':'center',
+                    'font-style': 'italic'});
+           
+
+                                            }     
+
+                                        })
+                                    });
+                                    
+
+                                 </script>
+ 
+                             
+                    </div>       
+
+             </div>
+          {% endif %}
+                                
+         
+</body>
+</html>        

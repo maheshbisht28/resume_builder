@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta  content="charset=utf-8">
+	<link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" media="all" > 
+	<link rel="stylesheet"  href="{% static 'css/resume.css' %}">
+<link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+</head>
+<body>
+<div id="testing">
+<div id="doc2" class="yui-t7">
+	<div id="inner">
+	
+		<div id="hd">
+			<div class="yui-gc">
+				<div class="yui-u first">
+					<br>
+					<br>
+					<br>
+
+					{% for ob in Personal_Details_ob %}
+					<h2 style="font-size:247%">{{ ob.first_name }}  {{ ob.last_name }}</h2>
+					{% endfor %}
+					<!-- <h2>Web Designer, Director</h2> -->
+
+				</div>
+
+				<div class="yui-u">
+					<div class="contact-info">
+						{% for ob in Address_ob %}
+						<h3>{{ ob.flat_no }} {{ ob.city }}</h3>
+						<h3>{{ ob.state }} {{ ob.pincode }}</h3>
+						<h3>{{ ob.country }}</h3>
+						{% endfor %}
+						{% for ob in Email_ob %}
+						<h3>{{ ob.email_name }} </h3>
+						{% endfor %}
+					</div><!--// .contact-info -->
+				</div>
+			</div><!--// .yui-gc -->
+		</div><!--// hd -->
+
+		<div id="bd">
+			<div id="yui-main">
+				<div class="yui-b">
+
+					<div class="yui-gf">
+						<div class="yui-u first">
+							<h2>Objectives</h2>
+						</div>
+						<div class="yui-u">
+
+							<p class="enlarge">
+								{{ Objectives_ob.objective_text }} 
+							</p>
+						</div>
+					</div><!--// .yui-gf -->
+
+					<div class="yui-gf">
+						<div class="yui-u first">
+							<h2>Skills</h2>
+						</div>
+						<div class="yui-u">
+
+								{%  for sk in skill_ob%}
+								<div class="talent">
+									<h2>{{ sk.name }}</h2>
+							
+								</div>
+								{% endfor %}
+
+						</div>
+					</div>
+
+					<div class="yui-gf">
+						<div class="yui-u first">
+							<h2>Interest</h2>
+						</div>
+						<div class="yui-u">
+							
+							{% for ob in Interest_ob%}
+
+							<div class="talent">
+								<h2>{{ ob.name }}</h2>
+							</div>
+							{% endfor %}
+
+	
+	 				   </div>
+					</div><!--// .yui-gf-->
+
+					<div class="yui-gf">
+	
+						<div class="yui-u first">
+							<h2>Experience</h2>
+						</div><!--// .yui-u -->
+
+						<div class="yui-u">
+							{% for ob in Experience_ob%}
+
+							<div class="job">
+								<h2>{{ ob.company }}</h2>
+								<h4>{{ ob.date_from}} - {{ ob.date_to}} </h4>
+								<p> {{ ob.summary }}</p>
+							</div>
+							{% endfor %}
+
+						</div><!--// .yui-u -->
+					</div><!--// .yui-gf -->
+
+
+					<div class="yui-gf last">
+						<div class="yui-u first">
+							<h2>Education</h2>
+						</div>
+						<div class="yui-u">
+						{% for  ob in Education_ob%}
+							<div class="job">
+							<h2>{{ ob.degree }} {{ ob.marks }}</h2>
+							<h3>{{ ob.board }} &mdash;{{ ob.date_from }} &mdash;{{ ob.date_to }} </h3>
+							<p> {{ ob.about }}</p>
+						    <br>
+						    <br>
+				          	</div>
+						{% endfor %}
+						</div>
+
+					</div>
+					<div class="yui-gf last">
+						<div class="yui-u first">
+							<h2>Certification </h2>
+						</div>
+						<div class="yui-u">
+							{% for ob in Certification_ob %}
+
+							<div class="job">
+								<h2>{{ ob.name }}</h2>
+								<!-- <h3></h3> -->
+								<h4>{{ ob.date_from}} - {{ ob.date_to}} </h4>
+								<br>
+								<h3>Expiry Date {{ ob.expired_date}} </h3>
+								<p> {{ ob.about }}</p>
+							</div>
+							{% endfor %}
+
+						  </div>
+					 </div>
+					  <div class="yui-gf last">
+						<div class="yui-u first">
+							<h2>Projects </h2>
+						</div>
+						<div class="yui-u">
+							{% for ob in Projects_ob %}
+
+							<div class="job">
+								<h2>{{ ob.title }}</h2>
+								<!-- <h3></h3> -->
+								<h4>{{ ob.date_from}} - {{ ob.date_to}} </h4>
+								<br>
+								<h3>Technology Used: {{ ob.technogy_used }} </h3>
+								<h3>Total member: {{ ob.total_member }} </h3>
+								<h3>My role: {{ ob.your_role }} </h3>
+								<p> {{ ob.Summary }}</p>
+							</div>
+							{% endfor %}
+
+						</div>
+					  </div>
+
+{% if Other_link_ob.all %}
+
+					<div id="testing" class="yui-gf last">
+						<div class="yui-u first">
+							<h2>Other Link </h2>
+						</div>
+						<div class="yui-u">
+							{% for ob in Other_link_ob %}
+
+							<div class="job">
+								<h2>{{ ob.link }}</h2>
+							</div>
+							{% endfor %}
+
+						</div>
+					  </div>
+				  
+{% endif %}
+
+
+<script src='https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js'></script>
+<script>
+	function generatePDF() {
+		const element=document.getElementById("testing");
+		html2pdf()
+		.from(element)
+		.save();
+		// body...
+	}
+</script>
+			<!--// .yui-gf -->
+
+
+				</div><!--// .yui-b -->
+			</div><!--// yui-main -->
+		</div><!--// bd -->
+
+
+
+	</div>
+
+</div><!--// doc -->
+	</div>
+ <button onclick="generatePDF()">Downoad_pdf</button>
+ <br><br><br>
+</body>
+</html>
+

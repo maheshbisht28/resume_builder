@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+ 
+
+                                  <script src="{% static 'js/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+</head>
+<body>
+
+	                    
+         <div class="container">
+               <div class="row">
+
+                    <div class="col-md-6 col-sm-12">
+                        
+                  {% if user.is_active  %}
+                          <div class="entry-form">
+                          <a href="{% url 'index' %}">Home</a>
+                          </div>
+
+
+                         <div class="entry-form">
+                        <a href="{% url 'logout' %}">Logout</a>
+                         </div>
+                       
+                            <div class="entry-form">
+                                   <h2>Login</h2>
+                               <form  id="Form" action="{% url 'enter_details' %}"  method="post">
+                              {% csrf_token %}
+
+                                <b>Email</b>
+                                  {{form_email.as_p }}
+
+                                  <b>skill</b>
+                                  {{form_skill.as_p }}
+
+                                  <b>Personal_Details</b>
+                                  {{form_Personal_Details.as_p }}  
+                                  
+                                  <b>Other_link</b>
+                                  {{form_Other_link.as_p }} 
+                                  
+                                  <b>Objectives</b>
+                                  {{form_Objectives.as_p }} 
+
+                                  <b>Education</b>  
+                                  {{form_Education.as_p }} 
+
+                                  <b>Experience</b>
+                                  {{form_Experience.as_p }}
+
+                                  <b>Projects</b>
+                                  {{form_Projects.as_p }}
+
+                                 <b>Certification</b>
+                                 {{ form_Certification.as_p }}
+
+                                  <b>Address</b>
+                                  {{form_Address.as_p }}
+                                  
+                                  <b>Interest</b>
+                                  {{form_Interest.as_p}}
+                               
+                                   <button type="submit"   class="btn btn-primary" >Submit</button>
+                             
+                                   </form>
+                            </div> 
+
+                {% else %}
+
+                 
+                    </div>
+
+                  {{ user.first_name }} {{ user.last_name }}
+                   
+                   
+                              <div class="col-md-offset-1 col-md-4 col-sm-12">
+                                      <form  id="the_Form" action=""  method="POST">
+                                        {% csrf_token %}
+                                      <div class="entry-form">
+                                             <h2>Signup today</h2>
+
+
+                                             <input type="text" name="first_name" id="id_first_name"   class="form-control" placeholder="Full name" required>  </input>
+                                             <input type="text"  name="last_name" id="id_last_name"  class="form-control" placeholder="Last name" required > </input>
+
+                                             <input type="email" name="user_email" id="id_user_email"   class="form-control" placeholder="Your email address" required>  </input>
+
+                                             <input type="password" name="password1" id="id_password1"  class="form-control" placeholder="Your password" required>  </input>
+                                             <input type="password" name="password2" id="id_password2"  class="form-control" placeholder="Your password" required>  </input>
+                                         
+                                        <button type="submit" id="b1"  class="btn btn-primary" >Submit</button>
+                                        </form>
+                                         <div id="sent_resullt_one">
+                                              
+                                          </div>
+                              </div>   
+                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                 <script >
+                                        $('#the_Form').on('submit', function(e){
+                                        e.preventDefault();
+                                         
+                                         alert("cscs")
+                                         
+
+                                        var form_id= $("#the_Form")
+                                        $.ajax({
+                                            type:'POST',
+                                            url: "{% url 'register' %}",
+                                            data:{
+                                            first_name :$('#id_first_name').val(),
+                                            last_name :$('#id_last_name').val(),
+                                            user_email :$('#id_user_email').val(), 
+                                            password1 :$('#id_password1').val(),
+                                            password2 :$('#id_password2').val(),
+                                             'csrfmiddlewaretoken': '{{ csrf_token }}' },
+                                            dataType:"json",
+
+                                            header:{'x-CSRFToken':'{% csrf_token %}'},
+                          
+                                            
+                                            success:function(json){
+                                 console.log(json);
+                                                // console.log("success");
+                                                      $("#sent_resullt_one").html("<tr><td><strong>"+json+"</strong></td><td></tr>").css({'background-color': 'green','width':'400px','font-size':'22px','text-align':'center',
+                    'font-style': 'italic'});
+           
+
+                                            }     
+
+                                        })
+                                    });
+                                    
+
+                                 </script>
+ 
+                             
+                    </div>       
+
+             </div>
+          {% endif %}
+                                
+         
+</body>
+</html>        
